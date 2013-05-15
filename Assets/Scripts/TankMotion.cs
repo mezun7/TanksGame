@@ -4,10 +4,28 @@ using System.Collections;
 public class TankMotion : MonoBehaviour
 {
 	public float speed = 20f;
+	public int health = 100;
 	// Use this for initialization
+	
+	void OnGUI () { 
+ 		GUI.Box (new Rect (5,5,100,20), "Health: " + getHealth()); 
+ 	}
+	
 	void Start ()
 	{
 	
+	}
+	
+	void Damage(int dmg) {
+		health -= dmg;
+		if(health <= 0) {
+			Destroy(gameObject);	
+		}
+		
+	}
+	
+	int getHealth() {
+		return health;	
 	}
 	
 	// Update is called once per frame

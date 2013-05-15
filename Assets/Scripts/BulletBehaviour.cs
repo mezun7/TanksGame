@@ -17,6 +17,13 @@ public class BulletBehaviour : MonoBehaviour
 			newBang.transform.position = transform.position + new Vector3(0, -1.5f, -6f);
 		}
 		
+		if(collision.collider.tag == "Tank") {
+			//Destroy(collision.collider.gameObject);
+			collision.collider.gameObject.SendMessage("Damage", 10);
+		//	Destroy(gameObject);	
+			//Debug.Log("Ok");
+		}
+		
 		Destroy(gameObject);
 	}
 	
