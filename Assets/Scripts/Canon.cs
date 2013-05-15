@@ -7,12 +7,14 @@ public class Canon : MonoBehaviour
 	public GameObject bullet_prefab;
 	public float bulletPower = 200f;
 	public float cannonRotationSpeed = 0.5f;
+	public AudioClip clip;
 	float lastShotTime;
 
 	// Use this for initialization
 	void Start ()
 	{
 		lastShotTime = Time.time;
+		
 	}
 	
 	// Update is called once per frame
@@ -39,8 +41,11 @@ public class Canon : MonoBehaviour
 
 	void Fire (float power)
 	{
+		audio.PlayOneShot(clip);
 		GameObject newBullet = Instantiate (bullet_prefab) as GameObject;
+	
 		newBullet.transform.position = transform.position + transform.rotation * new Vector3(0f, 2.8f, 0f);
 		newBullet.rigidbody.AddForce (transform.rotation * new Vector3 (0, power, 0),ForceMode.Impulse);
+		
 	}
 }
