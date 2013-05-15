@@ -5,8 +5,7 @@ public class Canon : MonoBehaviour {
 	
 	public GameObject bullet_prefab;
 	public float bulletPower = 10f;
-	private bool isFired;
-	private long LastTimeShot = 0;
+
 	// Use this for initialization
 	void Start () {
 	
@@ -14,7 +13,7 @@ public class Canon : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		
+	
 		if (Input.GetButton ("Fire1")) {
 			Fire(bulletPower);
 		}
