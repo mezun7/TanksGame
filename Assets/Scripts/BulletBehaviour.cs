@@ -12,25 +12,18 @@ public class BulletBehaviour : MonoBehaviour
 	}
 	
 	void OnCollisionEnter(Collision collision) {
+		if (collision.collider.tag == "Floor") {
+			GameObject newBang = Instantiate (blowZone) as GameObject;
+			newBang.transform.position = transform.position + new Vector3(0, -1.5f, -6f);
+		}
 		
-		GameObject newBang = Instantiate (blowZone) as GameObject;
-		newBang.transform.position = transform.position + new Vector3(0, -0.6f, 1f);
 		Destroy(gameObject);
 	}
 	
 	// Update is called once per frame
 	void Update ()
 	{
-	
 		
-	}
-	bool isOnGround() {
-		RaycastHit hit;
-		Physics.Raycast(transform.position, -Vector3.up, out hit);
-        if (hit.distance < 0.6f) {                
-			return true;
-		}
-		return false;
 	}
 }
 

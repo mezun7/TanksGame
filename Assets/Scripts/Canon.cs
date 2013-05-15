@@ -23,9 +23,18 @@ public class Canon : MonoBehaviour
 				Fire (bulletPower);
 				lastShotTime = Time.time;
 			}		
-		}	
-		transform.Rotate (0f, 0f, Input.GetAxis("Canon Rotation") * cannonRotationSpeed); 
+		}
 		
+		transform.Rotate (0f, 0f, Input.GetAxis("Canon Rotation") * cannonRotationSpeed); 
+		if(transform.rotation.eulerAngles.z > 45f && transform.rotation.eulerAngles.z < 315f) {
+			if(transform.rotation.eulerAngles.z <= 180f) {
+				transform.localRotation = Quaternion.Euler(0f, 0f, 45f);					
+			} else {
+				transform.localRotation = Quaternion.Euler(0f, 0f, 315f);					
+			}
+				
+		}
+		//Debug.Log(transform.rotation.eulerAngles.z);
 	}
 
 	void Fire (float power)
