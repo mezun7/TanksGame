@@ -19,7 +19,7 @@ public class TankMotion : MonoBehaviour {
 		}
 	}
 	
-	bool isOnGround() {
+	bool isOnGround() {//Проверка на нахождение на земле
 		RaycastHit hit;
 		Physics.Raycast(transform.position, -Vector3.up, out hit);
         if (hit.distance < 1.0f) {                
