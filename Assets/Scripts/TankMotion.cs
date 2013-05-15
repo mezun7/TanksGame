@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections;
 
 public class TankMotion : MonoBehaviour {
-
+	public float speed = 20f;
 	// Use this for initialization
 	void Start () {
 	
@@ -15,14 +15,14 @@ public class TankMotion : MonoBehaviour {
 	
 	void FixedUpdate(){
 		if (isOnGround()){
-			rigidbody.AddForce(new Vector3(20f * Input.GetAxis("Horizontal") * Time.fixedDeltaTime, 0f, 0f),ForceMode.Impulse);
+			rigidbody.AddForce(new Vector3(speed * Input.GetAxis("Horizontal") * Time.fixedDeltaTime, 0f, 0f),ForceMode.Impulse);
 		}
 	}
 	
 	bool isOnGround() {//Проверка на нахождение на земле
 		RaycastHit hit;
 		Physics.Raycast(transform.position, -Vector3.up, out hit);
-        if (hit.distance < 1.0f) {                
+        if (hit.distance < 2.1f) {                
 			return true;
 		}
 		return false;
