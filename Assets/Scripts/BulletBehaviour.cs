@@ -1,12 +1,9 @@
-
 using UnityEngine;
 using System.Collections;
-
 
 public class BulletBehaviour : MonoBehaviour
 {
 	public GameObject blowZone;
-	public  AudioClip clip;
 
 	// Use this for initialization
 	void Start ()
@@ -14,29 +11,24 @@ public class BulletBehaviour : MonoBehaviour
 		
 	}
 	
-	
-	
-	void OnCollisionEnter(Collision collision) {
-
+	void OnCollisionEnter (Collision collision)
+	{
 		if (collision.collider.tag == "Floor") {
 			
-			GameObject canon = GameObject.Find("Canon");
-			canon.audio.PlayOneShot(clip);
+			GameObject canon = GameObject.Find ("Canon");
+			audio.Play();
 			GameObject newBang = Instantiate (blowZone) as GameObject;
-			newBang.transform.position = transform.position + new Vector3(0, -1.5f, -6f);
+			newBang.transform.position = transform.position + new Vector3 (0, -1.5f, -6f);
 		}
 		
-		if(collision.collider.tag == "Tank") {
+		if (collision.collider.tag == "Tank") {
 			
-			GameObject canon = GameObject.Find("Canon");
-			canon.audio.PlayOneShot(clip);
-			//Destroy(collision.collider.gameObject);
-			collision.collider.gameObject.SendMessage("Damage", 10);
-		//	Destroy(gameObject);	
-			//Debug.Log("Ok");
+			GameObject canon = GameObject.Find ("Canon");
+			audio.Play();
+			collision.collider.gameObject.SendMessage ("Damage", 10);
 		}
 		
-		Destroy(gameObject);
+		Destroy (gameObject);
 	}
 	
 	// Update is called once per frame
