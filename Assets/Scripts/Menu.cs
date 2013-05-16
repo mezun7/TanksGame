@@ -12,6 +12,11 @@ public class Menu : MonoBehaviour
 	
 	void OnGUI ()
 	{
+		
+		if (Input.GetKey (KeyCode.Escape)) {
+				Time.timeScale = (float)0.0;
+			}
+		
 		GUI.Box (new Rect (Screen.width / 2 - 100, Screen.height / 2 - 100, 200, 180), "Main menu"); 
 		if (GUI.Button (new Rect (Screen.width / 2 - 90, Screen.height / 2 - 80, 180, 30), "Play")) { 
 			Application.LoadLevel (1); 
