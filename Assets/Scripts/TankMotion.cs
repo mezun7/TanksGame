@@ -19,6 +19,7 @@ public class TankMotion : MonoBehaviour
 	void Damage(int dmg) {
 		health -= dmg;
 		if(health <= 0) {
+			Application.Quit();
 			Destroy(gameObject);	
 		}
 		
