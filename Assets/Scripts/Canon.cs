@@ -57,7 +57,7 @@ public class Canon : MonoBehaviour
 		
 		
 		if (Time.time - lastShotTime > 0.2) {			
-			if (Input.GetButton ("Fire1")) {
+			if (Input.GetButton ("Fire1")&&(Time.timeScale!=0)) {
 				Fire (bulletPower);
 				lastShotTime = Time.time;
 			}		
