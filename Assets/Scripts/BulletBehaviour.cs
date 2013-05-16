@@ -15,7 +15,6 @@ public class BulletBehaviour : MonoBehaviour
 	{
 		if (collision.collider.tag == "Floor") {
 			
-			GameObject canon = GameObject.Find ("Canon");
 			audio.Play();
 			GameObject newBang = Instantiate (blowZone) as GameObject;
 			newBang.transform.position = transform.position + new Vector3 (0, -1.5f, -6f);
@@ -23,7 +22,7 @@ public class BulletBehaviour : MonoBehaviour
 		
 		if (collision.collider.tag == "Tank") {
 			
-			GameObject canon = GameObject.Find ("Canon");
+			
 			audio.Play();
 			collision.collider.gameObject.SendMessage ("Damage", 10);
 		}
