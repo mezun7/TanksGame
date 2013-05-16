@@ -11,7 +11,7 @@ public class Canon : MonoBehaviour
 	public float cannonRotationSpeed = 0.5f;
 	float lastShotTime;
 	public float canonPower = 0f;
-	
+	public AudioClip shotSound;
 	// Use this for initialization
 	void Start ()
 	{
@@ -68,10 +68,19 @@ public class Canon : MonoBehaviour
 			}	
 		}
 	}
+	
+	void PlaySound ()
+	{
+		GameObject canonGO = new GameObject ("Canon Sound", typeof(AudioSource));
+		canonGO.audio.clip = shotSound;
+		canonGO.audio.Play ();
+		Destroy (canonGO, 1f);
+	}
 
 	void Fire (float power)
 	{
-		//audio.PlayOneShot (clip);
+		//audio.PlayOneShot(shotSound);
+		PlaySound ();
 		GameObject newBullet = Instantiate (bullet_prefab) as GameObject;
 	
 		newBullet.transform.position = transform.position + transform.rotation * new Vector3 (0f, 2.8f, 0f);
@@ -84,15 +93,14 @@ public class Canon : MonoBehaviour
 		switch (tank.player) {
 		case Player.Player1:
 			{
-				GUI.Box (new Rect (20, 20, 100, 25), "");
-				GUI.Box (new Rect (20, 20, 100 * powerFactor, 25), "");
-
+				GUI.Box (new Rect (5, 30, 100, 20), "");
+				GUI.Box (new Rect (5, 30, 100 * powerFactor, 20), "");
 			}
 			break;
 		case Player.Player2:
 			{
-				GUI.Box (new Rect (Screen.width - 300, 20, 100, 25), "");			
-				GUI.Box (new Rect (Screen.width - 300, 20, powerFactor * 100, 25), "");
+				GUI.Box (new Rect (Screen.width - 105, 30, 100, 20), "");			
+				GUI.Box (new Rect (Screen.width - 105, 30, powerFactor * 100, 20), "");
 			}
 			break;
 		}		

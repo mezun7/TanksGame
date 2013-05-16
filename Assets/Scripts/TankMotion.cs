@@ -11,7 +11,19 @@ public class TankMotion : MonoBehaviour
 	
 	void OnGUI ()
 	{ 
-		GUI.Box (new Rect (5, 5, 100, 20), "Health: " + getHealth ()); 
+		//GUI.Box (new Rect (5, 5, 100, 20), "Health: " + getHealth ()); 
+		
+		
+		
+		switch (player) {
+			case Player.Player1:
+				GUI.Box (new Rect (5, 5, 100, 20), "Health: " + getHealth ()); 
+			
+				break;
+			case Player.Player2:
+				GUI.Box (new Rect (Screen.width - 105, 5, 100, 20), "Health: " + getHealth ()); 
+				break;
+			}
 	}
 	
 	void Start ()
