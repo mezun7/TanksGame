@@ -12,6 +12,7 @@ public class Canon : MonoBehaviour
 	float lastShotTime;
 	public float canonPower = 0f;
 	public AudioClip shotSound;
+	public int damage;
 	// Use this for initialization
 	void Start ()
 	{
@@ -76,13 +77,21 @@ public class Canon : MonoBehaviour
 		canonGO.audio.Play ();
 		Destroy (canonGO, 1f);
 	}
-
+	
+	
+	void culcDamage()
+	{
+		damage = (int)((100*canonPower)/((maxBulletPower-minBulletPower)*5));
+		Debug.Log("culc dam:"+damage);
+	}
+	
 	void Fire (float power)
 	{
-		//audio.PlayOneShot(shotSound);
+
 		PlaySound ();
+		culcDamage();
 		GameObject newBullet = Instantiate (bullet_prefab) as GameObject;
-	
+		
 		newBullet.transform.position = transform.position + transform.rotation * new Vector3 (0f, 2.8f, 0f);
 		newBullet.rigidbody.AddForce (transform.rotation * new Vector3 (0, power, 0), ForceMode.Impulse);
 		

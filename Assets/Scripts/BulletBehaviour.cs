@@ -5,11 +5,19 @@ public class BulletBehaviour : MonoBehaviour
 {
 	public GameObject blowZone;
 	public AudioClip blast;
+
+	public int damage;
 	// Use this for initialization
 	void Start ()
-	{
-		
+	{		
+		Canon canon = GameObject.Find("Canon").GetComponent<Canon>();
+		damage = canon.damage;
+		Debug.Log("Getted Damage"+damage);
+		Debug.Log(rigidbody.velocity);
 	}
+	
+	
+	
 	
 	void LeaveSound ()
 	{
@@ -30,7 +38,7 @@ public class BulletBehaviour : MonoBehaviour
 		
 		if (collision.collider.tag == "Tank") {
 			LeaveSound();
-			collision.collider.gameObject.SendMessage ("Damage", 10);
+			collision.collider.gameObject.SendMessage ("Damage", 10+damage);
 		}
 		
 		Destroy (gameObject);
