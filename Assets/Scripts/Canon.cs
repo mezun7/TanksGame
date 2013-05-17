@@ -24,13 +24,25 @@ public class Canon : MonoBehaviour
 	void Update ()
 	{	
 		// Canon rotation
-		transform.Rotate (0f, 0f, Input.GetAxis ("Canon Rotation") * cannonRotationSpeed); 
-		if (transform.rotation.eulerAngles.z > 45f && transform.rotation.eulerAngles.z < 315f) {
-			if (transform.rotation.eulerAngles.z <= 180f) {
-				transform.localRotation = Quaternion.Euler (0f, 0f, 45f);					
-			} else {
-				transform.localRotation = Quaternion.Euler (0f, 0f, 315f);					
-			} 		
+		if (tank.player == Player.Player1) {
+			transform.Rotate (0f, 0f, Input.GetAxis ("CanonRotation1") * cannonRotationSpeed); 
+			if (transform.rotation.eulerAngles.z > 45f && transform.rotation.eulerAngles.z < 315f) {
+				if (transform.rotation.eulerAngles.z <= 180f) {
+					transform.localRotation = Quaternion.Euler (0f, 0f, 45f);					
+				} else {
+					transform.localRotation = Quaternion.Euler (0f, 0f, 315f);					
+				} 		
+			}
+		} else if (tank.player == Player.Player2) {
+			transform.Rotate (0f, 0f, Input.GetAxis ("CanonRotation2") * cannonRotationSpeed); 
+			if (transform.rotation.eulerAngles.z > 45f && transform.rotation.eulerAngles.z < 315f) {
+				if (transform.rotation.eulerAngles.z <= 180f) {
+					transform.localRotation = Quaternion.Euler (0f, 0f, 45f);					
+				} else {
+					transform.localRotation = Quaternion.Euler (0f, 0f, 315f);					
+				} 		
+			}
+				
 		}
 		
 		// Power adjusting
@@ -51,7 +63,7 @@ public class Canon : MonoBehaviour
 		powerFactor = canonPower / maxBulletPower;
 		
 		// Shooting
-		if (Time.time - lastShotTime > 0.2&&Time.timeScale!=0) {
+		if (Time.time - lastShotTime > 0.2 && Time.timeScale != 0) {
 			bool isFirePressed = false;
 			
 			switch (tank.player) {
@@ -78,23 +90,22 @@ public class Canon : MonoBehaviour
 		Destroy (canonGO, 1f);
 	}
 	
-	
-	void culcDamage()
+	void culcDamage ()
 	{
-		damage = (int)((100*canonPower)/((maxBulletPower-minBulletPower)*5));
-		Debug.Log("culc dam:"+damage);
+		damage = (int)((100 * canonPower) / ((maxBulletPower - minBulletPower) * 5));
+		//Debug.Log("culc dam:"+damage);
 	}
 	
 	void Fire (float power)
 	{
 
 		PlaySound ();
-		culcDamage();
+		culcDamage ();
 		BulletBehaviour newBullet = (Instantiate (bullet_prefab) as GameObject).GetComponent<BulletBehaviour> ();
   
-  	newBullet.transform.position = transform.position + transform.rotation * new Vector3 (0f, 2.8f, 0f);
-  	newBullet.rigidbody.AddForce (transform.rotation * new Vector3 (0, power, 0), ForceMode.Impulse);
-  	newBullet.damage = damage;
+		newBullet.transform.position = transform.position + transform.rotation * new Vector3 (0f, 2.8f, 0f);
+		newBullet.rigidbody.AddForce (transform.rotation * new Vector3 (0, power, 0), ForceMode.Impulse);
+		newBullet.damage = damage;
 		
 	}
 
