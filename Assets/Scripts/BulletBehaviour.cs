@@ -10,10 +10,6 @@ public class BulletBehaviour : MonoBehaviour
 	// Use this for initialization
 	void Start ()
 	{		
-		Canon canon = GameObject.Find("Canon").GetComponent<Canon>();
-		damage = canon.damage;
-		Debug.Log("Getted Damage"+damage);
-		Debug.Log(rigidbody.velocity);
 	}
 	
 	

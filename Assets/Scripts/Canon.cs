@@ -90,10 +90,11 @@ public class Canon : MonoBehaviour
 
 		PlaySound ();
 		culcDamage();
-		GameObject newBullet = Instantiate (bullet_prefab) as GameObject;
-		
-		newBullet.transform.position = transform.position + transform.rotation * new Vector3 (0f, 2.8f, 0f);
-		newBullet.rigidbody.AddForce (transform.rotation * new Vector3 (0, power, 0), ForceMode.Impulse);
+		BulletBehaviour newBullet = (Instantiate (bullet_prefab) as GameObject).GetComponent<BulletBehaviour> ();
+  
+  	newBullet.transform.position = transform.position + transform.rotation * new Vector3 (0f, 2.8f, 0f);
+  	newBullet.rigidbody.AddForce (transform.rotation * new Vector3 (0, power, 0), ForceMode.Impulse);
+  	newBullet.damage = damage;
 		
 	}
 
