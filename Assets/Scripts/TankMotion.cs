@@ -16,14 +16,14 @@ public class TankMotion : MonoBehaviour
 		
 		
 		switch (player) {
-			case Player.Player1:
-				GUI.Box (new Rect (5, 5, 100, 20), "Health: " + getHealth ()); 
+		case Player.Player1:
+			GUI.Box (new Rect (5, 5, 100, 20), "Health: " + getHealth ()); 
 			
-				break;
-			case Player.Player2:
-				GUI.Box (new Rect (Screen.width - 105, 5, 100, 20), "Health: " + getHealth ()); 
-				break;
-			}
+			break;
+		case Player.Player2:
+			GUI.Box (new Rect (Screen.width - 105, 5, 100, 20), "Health: " + getHealth ()); 
+			break;
+		}
 	}
 	
 	void Start ()
@@ -35,7 +35,15 @@ public class TankMotion : MonoBehaviour
 	{
 		health -= dmg;
 		if (health <= 0) {
-			Application.Quit ();
+			switch (player) {
+			case Player.Player1:
+				PauseMenu.Instance.Win ("Player2");
+				break;
+			case Player.Player2:
+				PauseMenu.Instance.Win ("Player1");
+
+				break;
+			}
 			Destroy (gameObject);	
 		}
 		
