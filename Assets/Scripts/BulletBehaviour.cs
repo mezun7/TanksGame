@@ -4,16 +4,13 @@ using System.Collections;
 public class BulletBehaviour : MonoBehaviour
 {
 	public GameObject blowZone;
+	public GameObject fire;
 	public AudioClip blast;
-
 	public int damage;
 	// Use this for initialization
 	void Start ()
 	{		
 	}
-	
-	
-	
 	
 	void LeaveSound ()
 	{
@@ -27,14 +24,16 @@ public class BulletBehaviour : MonoBehaviour
 	{
 		if (collision.collider.tag == "Floor") {
 			
-			LeaveSound();
+			LeaveSound ();
 			GameObject newBang = Instantiate (blowZone) as GameObject;
 			newBang.transform.position = transform.position + new Vector3 (0, -1.5f, -6f);
 		}
 		
 		if (collision.collider.tag == "Tank") {
-			LeaveSound();
-			collision.collider.gameObject.SendMessage ("Damage", 10+damage);
+			LeaveSound ();
+			collision.collider.gameObject.SendMessage ("Damage", 10 + damage);
+			GameObject newFire = Instantiate (fire) as GameObject;
+			newFire.transform.position = transform.position + new Vector3 (0, -1.5f, -6f);
 		}
 		
 		Destroy (gameObject);
