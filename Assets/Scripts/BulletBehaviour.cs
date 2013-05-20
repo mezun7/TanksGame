@@ -36,6 +36,12 @@ public class BulletBehaviour : MonoBehaviour
 			newFire.transform.position = transform.position + new Vector3 (0, -1.5f, -6f);
 		}
 		
+		if (collision.collider.tag == "Bullet") {
+			//create object in air and start animation play, destroy gameobject after it
+		}
+		
+		
+		
 		Destroy (gameObject);
 	}
 	

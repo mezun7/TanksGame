@@ -18,9 +18,13 @@ public class PauseMenu : MonoBehaviour
 	private float oldTimeScale;
 	private string _message;
 	private bool isGamePaused = false;
+	private GameObject soundPlayer;
+	public AudioClip pauseMenuSound;
 	// Use this for initialization
 	void Start ()
 	{
+		
+		
 	}
 	
 	void OnGUI ()
@@ -47,6 +51,8 @@ public class PauseMenu : MonoBehaviour
 			if (GUI.Button (new Rect (Screen.width / 2 - 90, Screen.height / 2 - 40, 180, 30), "Return")) { 
 				Time.timeScale = oldTimeScale;    
 				isGamePaused = !isGamePaused;
+				soundPlayer.audio.Stop();
+				Destroy(soundPlayer);
 			} 	
 			
 			if (GUI.Button (new Rect (Screen.width / 2 - 90, Screen.height / 2, 180, 30), "Options")) { 
@@ -61,12 +67,17 @@ public class PauseMenu : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
 	{
-		if (Input.GetKeyDown (KeyCode.Escape)) {
+		if (Input.GetKeyDown (KeyCode.Escape)&&!isWon) {
 			if (isGamePaused) {
 				Time.timeScale = oldTimeScale;
+				soundPlayer.audio.Stop();
+				Destroy(soundPlayer);
 			} else {
 				oldTimeScale = Time.timeScale;
 				Time.timeScale = (float)0.0;
+				soundPlayer = new GameObject ("Pause Menu Sound", typeof(AudioSource));
+				soundPlayer.audio.clip = pauseMenuSound;
+				soundPlayer.audio.Play();
 			}
 			isGamePaused = !isGamePaused;
 		}
