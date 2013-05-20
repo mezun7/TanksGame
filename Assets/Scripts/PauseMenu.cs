@@ -28,8 +28,7 @@ public class PauseMenu : MonoBehaviour
 		if (isWon) {
 				 
 			GUI.Box (new Rect (Screen.width / 2 - 100, Screen.height / 2 - 100, 200, 180), _message + " Won! Our Congrats"); 
-			if (GUI.Button (new Rect (Screen.width / 2 - 90, Screen.height / 2 - 80, 180, 30), "Main Menu")) { 
-				Time.timeScale = 0f;
+			if (GUI.Button (new Rect (Screen.width / 2 - 90, Screen.height / 2 - 80, 180, 30), "Main Menu")) {			
 				Application.LoadLevel (0);
 				
 			}

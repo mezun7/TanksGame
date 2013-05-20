@@ -4,7 +4,7 @@ using System.Collections;
 public class BulletBehaviour : MonoBehaviour
 {
 	public GameObject blowZone;
-	public GameObject fire;
+	public GameObject fireZone;
 	public AudioClip blast;
 	public int damage;
 	// Use this for initialization
@@ -32,7 +32,7 @@ public class BulletBehaviour : MonoBehaviour
 		if (collision.collider.tag == "Tank") {
 			LeaveSound ();
 			collision.collider.gameObject.SendMessage ("Damage", 10 + damage);
-			GameObject newFire = Instantiate (fire) as GameObject;
+			GameObject newFire = Instantiate (fireZone) as GameObject;
 			newFire.transform.position = transform.position + new Vector3 (0, -1.5f, -6f);
 		}
 		
