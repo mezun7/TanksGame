@@ -67,6 +67,8 @@ public class PauseMenu : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
 	{
+		
+		
 		if (Input.GetKeyDown (KeyCode.Escape)&&!isWon) {
 			if (isGamePaused) {
 				Time.timeScale = oldTimeScale;
@@ -76,6 +78,7 @@ public class PauseMenu : MonoBehaviour
 				oldTimeScale = Time.timeScale;
 				Time.timeScale = (float)0.0;
 				soundPlayer = new GameObject ("Pause Menu Sound", typeof(AudioSource));
+				soundPlayer.audio.loop = true;
 				soundPlayer.audio.clip = pauseMenuSound;
 				soundPlayer.audio.Play();
 			}

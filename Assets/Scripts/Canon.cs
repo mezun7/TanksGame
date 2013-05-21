@@ -63,7 +63,7 @@ public class Canon : MonoBehaviour
 		powerFactor = canonPower / maxBulletPower;
 		
 		// Shooting
-		if (Time.time - lastShotTime > 0.2 && Time.timeScale != 0) {
+		if (Time.time - lastShotTime > 0.8 && Time.timeScale != 0) {
 			bool isFirePressed = false;
 			
 			switch (tank.player) {
