@@ -1,12 +1,16 @@
 using UnityEngine;
 using System.Collections;
 
+
 public class BulletBehaviour : MonoBehaviour
 {
 	public GameObject blowZone;
 	public GameObject fireZone;
 	public AudioClip blast;
 	public int damage;
+	public float bulletPositionX = 0f;
+	public float bulletPositionY = -1.5f;
+	public float bulletPositionZ = -6f;
 	// Use this for initialization
 	void Start ()
 	{		
@@ -26,14 +30,14 @@ public class BulletBehaviour : MonoBehaviour
 			
 			LeaveSound ();
 			GameObject newBang = Instantiate (blowZone) as GameObject;
-			newBang.transform.position = transform.position + new Vector3 (0, -1.5f, -6f);
+			newBang.transform.position = transform.position + new Vector3 (bulletPositionX, bulletPositionY, bulletPositionZ);
 		}
 		
 		if (collision.collider.tag == "Tank") {
 			LeaveSound ();
 			collision.collider.gameObject.SendMessage ("Damage", 10 + damage);
 			GameObject newFire = Instantiate (fireZone) as GameObject;
-			newFire.transform.position = transform.position + new Vector3 (0, -1.5f, -6f);
+			newFire.transform.position = transform.position + new Vector3 (bulletPositionX, bulletPositionY, bulletPositionZ);
 		}
 		
 		if (collision.collider.tag == "Bullet") {
