@@ -78,6 +78,7 @@ public class SmoothLandGenerator : MonoBehaviour
 		
 		for (int i = 0; i < vertices.Length-2; i += 2) {
 			GameObject newGO = new GameObject ("Land Collider " + i, typeof(BoxCollider));
+			newGO.tag = "Floor";
 			newGO.transform.parent = transform;
 			newGO.transform.localScale = new Vector3 (Vector3.Distance (vertices [i], vertices [i + 2]), 1f, 10f);
 			newGO.transform.rotation = Quaternion.LookRotation (vertices [i + 2] - vertices [i]);
