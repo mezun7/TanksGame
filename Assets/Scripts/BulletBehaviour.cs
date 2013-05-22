@@ -6,6 +6,7 @@ public class BulletBehaviour : MonoBehaviour
 {
 	public GameObject blowZone;
 	public GameObject fireZone;
+	public GameObject bulletCollisionZone;
 	public AudioClip blast;
 	public int damage;
 	public float bulletPositionX = 0f;
@@ -41,7 +42,9 @@ public class BulletBehaviour : MonoBehaviour
 		}
 		
 		if (collision.collider.tag == "Bullet") {
-			//create object in air and start animation play, destroy gameobject after it
+			LeaveSound ();
+			GameObject newBulletCollisionZone = Instantiate (bulletCollisionZone) as GameObject;
+			newBulletCollisionZone.transform.position = transform.position + new Vector3 (bulletPositionX, bulletPositionY, bulletPositionZ);
 		}
 		
 		

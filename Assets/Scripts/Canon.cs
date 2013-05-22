@@ -91,7 +91,7 @@ public class Canon : MonoBehaviour
 		Destroy (canonGO, 1f);
 	}
 	
-	void culcDamage ()
+	void calcDamage ()
 	{
 		damage = (int)((100 * canonPower) / ((maxBulletPower - minBulletPower) * 5));
 		//Debug.Log("culc dam:"+damage);
@@ -101,7 +101,7 @@ public class Canon : MonoBehaviour
 	{
 
 		PlaySound ();
-		culcDamage ();
+		calcDamage ();
 		BulletBehaviour newBullet = (Instantiate (bullet_prefab) as GameObject).GetComponent<BulletBehaviour> ();
   
 		newBullet.transform.position = transform.position + transform.rotation * new Vector3 (0f, canonLength, 0f);
