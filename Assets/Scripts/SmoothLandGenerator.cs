@@ -3,11 +3,15 @@ using System.Collections;
 
 public class SmoothLandGenerator : MonoBehaviour
 {
-
+	public int noiseDensity = 10;
+	public float flattingFactor = 2f;
+	public float width = 100f;
+	public float height = 30f;
 	// Use this for initialization
 	void Start ()
 	{
-		GetComponent<MeshFilter> ().mesh = GenerateLand (10, 2f, 100f, 30f);
+		GetComponent<MeshFilter> ().mesh = GenerateLand (noiseDensity, flattingFactor, width, height);
+		GenerateColliders (GetComponent<MeshFilter> ().mesh);
 	}
 	
 	// Update is called once per frame
@@ -53,9 +57,9 @@ public class SmoothLandGenerator : MonoBehaviour
 		int[] triangles = new int[(vertices.Length - 2) * 3];
 		
 		for (int i = 0; i < triangles.Length; i += 3) {
-			triangles [i]     = (2 - 2*(i%2)) + i / 3;
+			triangles [i] = (2 - 2 * (i % 2)) + i / 3;
 			triangles [i + 1] = 1 + i / 3;
-			triangles [i + 2] = (0 + 2*(i%2)) + i / 3;
+			triangles [i + 2] = (0 + 2 * (i % 2)) + i / 3;
 		}
 		
 		ret.triangles = triangles;
@@ -66,5 +70,19 @@ public class SmoothLandGenerator : MonoBehaviour
 		
 		
 		return ret;
-	}	
+	}
+
+	void GenerateColliders (Mesh mesh)
+	{
+		Vector3[] vertices = mesh.vertices;
+		
+		for (int i = 0; i < vertices.Length-2; i += 2) {
+			GameObject newGO = new GameObject ("Land Collider " + i, typeof(BoxCollider));
+			newGO.transform.parent = transform;
+			newGO.transform.localScale = new Vector3 (Vector3.Distance (vertices [i], vertices [i + 2]), 1f, 10f);
+			newGO.transform.rotation = Quaternion.LookRotation (vertices [i + 2] - vertices [i]);
+			newGO.transform.localPosition = vertices[i];
+			//vertices[i]
+		}
+	}
 }
