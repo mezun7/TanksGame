@@ -13,6 +13,7 @@ public class Canon : MonoBehaviour
 	public float canonPower = 0f;
 	public AudioClip shotSound;
 	public int damage;
+	private float canonLength = 4f; 
 	// Use this for initialization
 	void Start ()
 	{
@@ -63,7 +64,7 @@ public class Canon : MonoBehaviour
 		powerFactor = canonPower / maxBulletPower;
 		
 		// Shooting
-		if (Time.time - lastShotTime > 0.2 && Time.timeScale != 0) {
+		if (Time.time - lastShotTime > 0.8 && Time.timeScale != 0) {
 			bool isFirePressed = false;
 			
 			switch (tank.player) {
@@ -103,7 +104,7 @@ public class Canon : MonoBehaviour
 		culcDamage ();
 		BulletBehaviour newBullet = (Instantiate (bullet_prefab) as GameObject).GetComponent<BulletBehaviour> ();
   
-		newBullet.transform.position = transform.position + transform.rotation * new Vector3 (0f, 2.8f, 0f);
+		newBullet.transform.position = transform.position + transform.rotation * new Vector3 (0f, canonLength, 0f);
 		newBullet.rigidbody.AddForce (transform.rotation * new Vector3 (0, power, 0), ForceMode.Impulse);
 		newBullet.damage = damage;
 		

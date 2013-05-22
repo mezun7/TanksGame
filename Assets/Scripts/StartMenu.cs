@@ -9,7 +9,7 @@ public class StartMenu : MonoBehaviour
 	// Use this for initialization
 	void Start ()
 	{
-	
+		audio.loop = true;	
 	}
 	void OnGUI ()
 	{
@@ -27,8 +27,6 @@ public class StartMenu : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
 	{
-		if(!audio.isPlaying){
-		audio.Play();	
-		}
+		
 	}
 }

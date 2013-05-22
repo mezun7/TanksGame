@@ -55,6 +55,15 @@ public class TankMotion : MonoBehaviour
 		
 	}
 	
+	
+	void OnCollisionEnter (Collision collision)
+	{
+		if (collision.collider.tag == "Tank") {
+			Damage((int)collision.rigidbody.velocity.magnitude);
+		}	
+	}
+	
+	
 	int getHealth ()
 	{
 		return health;	
