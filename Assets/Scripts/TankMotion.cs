@@ -11,6 +11,7 @@ public class TankMotion : MonoBehaviour
 	private float lastFrameChange;
 	private Renderer _myRenderer;
 	float movementFactor = 0f;
+	bool isGrounded;
 	
 	
 	// Use this for initialization
@@ -55,14 +56,12 @@ public class TankMotion : MonoBehaviour
 		
 	}
 	
-	
 	void OnCollisionEnter (Collision collision)
 	{
 		if (collision.collider.tag == "Tank") {
-			Damage((int)collision.rigidbody.velocity.magnitude);
+			Damage ((int)collision.rigidbody.velocity.magnitude);
 		}	
 	}
-	
 	
 	int getHealth ()
 	{
@@ -74,15 +73,23 @@ public class TankMotion : MonoBehaviour
 	{
 		// Animation
 		if (lastFrameChange + animationFrequency < Time.time && Mathf.Abs (rigidbody.velocity.x) > 0.5f) {
-			_myRenderer.material.mainTextureOffset += new Vector2 (0.25f, 0f) * Mathf.Sign(rigidbody.velocity.x);
+			_myRenderer.material.mainTextureOffset += new Vector2 (0.25f, 0f) * Mathf.Sign (rigidbody.velocity.x);
 			lastFrameChange = Time.time;
 		}
 	}
 	
 	void FixedUpdate ()
 	{
-		if (isOnGround ()) {
-			
+		if (transform.localRotation.eulerAngles.z > 45f && transform.rotation.eulerAngles.z < 315f) {
+			if (transform.localRotation.eulerAngles.z <= 180f) {
+				transform.localRotation = Quaternion.Euler (0f, 0f, 45f);					
+			} else {
+				transform.localRotation = Quaternion.Euler (0f, 0f, 315f);					
+			} 		
+		}
+		
+		// (isOnGround ()) {	
+		if (isGrounded) {
 			switch (player) {
 			case Player.Player1:
 				movementFactor = Input.GetAxis ("Movement 1");
@@ -95,12 +102,28 @@ public class TankMotion : MonoBehaviour
 		}
 	}
 	
+	void OnCollisionStay (Collision info)
+	{
+		if (info.collider.tag == "Floor") {
+			isGrounded = true;
+		} else {
+			isGrounded = false;
+		}
+	}
+	
+	void OnCollisionExit ()
+	{
+		isGrounded = false;
+	}
+	
 	bool isOnGround ()
 	{//Проверка на нахождение на земле
 		RaycastHit hit;
-		Physics.Raycast (transform.position, -Vector3.up, out hit);
-		if (hit.distance < 0.5) {                
-			return true;
+		if (Physics.Raycast (transform.position, -transform.up, out hit)) {
+			if (hit.distance < 1f) {
+				Debug.Log (name + " stays on " + hit.collider.name);
+				return true;
+			}
 		}
 		return false;
 	}

@@ -27,8 +27,8 @@ public class Canon : MonoBehaviour
 		// Canon rotation
 		if (tank.player == Player.Player1) {
 			transform.Rotate (0f, 0f, Input.GetAxis ("CanonRotation1") * cannonRotationSpeed); 
-			if (transform.rotation.eulerAngles.z > 45f && transform.rotation.eulerAngles.z < 315f) {
-				if (transform.rotation.eulerAngles.z <= 180f) {
+			if (transform.localRotation.eulerAngles.z > 45f && transform.rotation.eulerAngles.z < 315f) {
+				if (transform.localRotation.eulerAngles.z <= 180f) {
 					transform.localRotation = Quaternion.Euler (0f, 0f, 45f);					
 				} else {
 					transform.localRotation = Quaternion.Euler (0f, 0f, 315f);					
@@ -36,8 +36,8 @@ public class Canon : MonoBehaviour
 			}
 		} else if (tank.player == Player.Player2) {
 			transform.Rotate (0f, 0f, Input.GetAxis ("CanonRotation2") * cannonRotationSpeed); 
-			if (transform.rotation.eulerAngles.z > 45f && transform.rotation.eulerAngles.z < 315f) {
-				if (transform.rotation.eulerAngles.z <= 180f) {
+			if (transform.localRotation.eulerAngles.z > 45f && transform.rotation.eulerAngles.z < 315f) {
+				if (transform.localRotation.eulerAngles.z <= 180f) {
 					transform.localRotation = Quaternion.Euler (0f, 0f, 45f);					
 				} else {
 					transform.localRotation = Quaternion.Euler (0f, 0f, 315f);					
