@@ -11,6 +11,7 @@ public class BulletBehaviour : MonoBehaviour
 	public float bulletPositionX = 0f;
 	public float bulletPositionY = -1.5f;
 	public float bulletPositionZ = -6f;
+
 	// Use this for initialization
 	void Start ()
 	{		
@@ -27,7 +28,7 @@ public class BulletBehaviour : MonoBehaviour
 	void OnCollisionEnter (Collision collision)
 	{
 		if (collision.collider.tag == "Floor") {
-			collision.collider.transform.parent.GetComponent<SmoothLandGenerator> ().AddHole();
+			collision.collider.transform.parent.GetComponent<SmoothLandGenerator> ().AddHole(transform.position,new Vector3 (bulletPositionX,bulletPositionY,bulletPositionZ),collision.collider.transform.parent.GetComponent<SmoothLandGenerator>().GenerateLand());
 			LeaveSound ();
 			//GameObject newBang = Instantiate (blowZone) as GameObject;
 			//newBang.transform.position = transform.position + new Vector3 (bulletPositionX, bulletPositionY, bulletPositionZ);

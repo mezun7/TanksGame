@@ -90,16 +90,16 @@ public class SmoothLandGenerator : MonoBehaviour
 		}
 	}
 
-	public Mesh AddHole (Vector3 pos, Vector3 direction, MeshFilter meshFilter)
+	public Mesh AddHole (Vector3 pos, Vector3 direction, Mesh mesh)
 	{
 		float xPos=pos.x;
 		Mesh ret = new Mesh ();
 		ret.name = "Land Mesh";
-		Vector3[] newVertices = new Vector3[meshFilter.mesh.vertices.Length + 2];
+		Vector3[] newVertices = new Vector3[mesh.vertices.Length + 2];
 	
-		int[] newTriangles = new int[meshFilter.mesh.triangles.Length + 2];
+		int[] newTriangles = new int[mesh.triangles.Length + 2];
 		Vector3 newVertex;		
-		Vector3[] vertices = meshFilter.mesh.vertices;
+		Vector3[] vertices = mesh.vertices;
 		int i = 0;
 		
 		//new Vertices
@@ -123,7 +123,7 @@ public class SmoothLandGenerator : MonoBehaviour
 		
 		// new Triangles
 		
-		newTriangles = meshFilter.mesh.triangles;
+		newTriangles = mesh.triangles;
 		
 		newTriangles [newTriangles.Length - 6] = newTriangles.Length - 1;
 		newTriangles [newTriangles.Length - 5] = newTriangles.Length - 2;
