@@ -17,6 +17,7 @@ public class SmoothLandGenerator : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
 	{
+		
 	}
 	
 	/// <summary>
@@ -87,5 +88,51 @@ public class SmoothLandGenerator : MonoBehaviour
 			newGOTransform.localPosition = vertices [i] - newGOTransform.rotation * new Vector3 (newGOTransform.localScale.x * 0.5f, newGOTransform.localScale.y * 0.5f, 0);
 			//vertices[i]
 		}
+	}
+
+	public Mesh AddHole (Vector3 pos, Vector3 direction, MeshFilter meshFilter)
+	{
+		float xPos=pos.x;
+		Mesh ret = new Mesh ();
+		ret.name = "Land Mesh";
+		Vector3[] newVertices = new Vector3[meshFilter.mesh.vertices.Length + 2];
+	
+		int[] newTriangles = new int[meshFilter.mesh.triangles.Length + 2];
+		Vector3 newVertex;		
+		Vector3[] vertices = meshFilter.mesh.vertices;
+		int i = 0;
+		
+		//new Vertices
+		while (vertices[i].x < xPos) {
+			newVertices [i] = vertices [i];		
+			newVertices [i + 1] = vertices [i + 1];		
+			i += 2;			
+		}
+		
+		newVertex = pos + direction;
+		newVertices [i] = newVertex;		
+		newVertices [i + 1] = new Vector3 (newVertices [i].x, 0f, newVertices [i].z);
+		
+		i += 2;
+		while (i<newVertices.Length-1) {
+			newVertices [i + 1] = vertices [i];		
+			newVertices [i + 2] = vertices [i + 1];		
+			i += 2;			
+		}
+		ret.vertices = newVertices;
+		
+		// new Triangles
+		
+		newTriangles = meshFilter.mesh.triangles;
+		
+		newTriangles [newTriangles.Length - 6] = newTriangles.Length - 1;
+		newTriangles [newTriangles.Length - 5] = newTriangles.Length - 2;
+		newTriangles [newTriangles.Length - 4] = newTriangles.Length - 3;
+		newTriangles [newTriangles.Length - 3] = newTriangles.Length;
+		newTriangles [newTriangles.Length - 2] = newTriangles.Length - 2;
+		newTriangles [newTriangles.Length - 1] = newTriangles.Length - 1;
+
+		ret.triangles = newTriangles;
+		return ret;
 	}
 }

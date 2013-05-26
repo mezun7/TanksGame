@@ -1,7 +1,6 @@
 using UnityEngine;
 using System.Collections;
 
-
 public class BulletBehaviour : MonoBehaviour
 {
 	public GameObject blowZone;
@@ -28,20 +27,16 @@ public class BulletBehaviour : MonoBehaviour
 	void OnCollisionEnter (Collision collision)
 	{
 		if (collision.collider.tag == "Floor") {
-			
+			collision.collider.transform.parent.GetComponent<SmoothLandGenerator> ().AddHole();
 			LeaveSound ();
-			GameObject newBang = Instantiate (blowZone) as GameObject;
-			newBang.transform.position = transform.position + new Vector3 (bulletPositionX, bulletPositionY, bulletPositionZ);
-		}
-		
-		if (collision.collider.tag == "Tank") {
+			//GameObject newBang = Instantiate (blowZone) as GameObject;
+			//newBang.transform.position = transform.position + new Vector3 (bulletPositionX, bulletPositionY, bulletPositionZ);
+		} else if (collision.collider.tag == "Tank") {
 			LeaveSound ();
 			collision.collider.gameObject.SendMessage ("Damage", 10 + damage);
 			GameObject newFire = Instantiate (fireZone) as GameObject;
 			newFire.transform.position = transform.position + new Vector3 (bulletPositionX, bulletPositionY, bulletPositionZ);
-		}
-		
-		if (collision.collider.tag == "Bullet") {
+		} else if (collision.collider.tag == "Bullet") {
 			LeaveSound ();
 			GameObject newBulletCollisionZone = Instantiate (bulletCollisionZone) as GameObject;
 			newBulletCollisionZone.transform.position = transform.position + new Vector3 (bulletPositionX, bulletPositionY, bulletPositionZ);
