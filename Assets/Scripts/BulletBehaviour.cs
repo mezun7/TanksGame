@@ -28,10 +28,10 @@ public class BulletBehaviour : MonoBehaviour
 	void OnCollisionEnter (Collision collision)
 	{
 		if (collision.collider.tag == "Floor") {
-			collision.collider.transform.parent.GetComponent<SmoothLandGenerator> ().AddHole(transform.position,new Vector3 (bulletPositionX,bulletPositionY,bulletPositionZ),collision.collider.transform.parent.GetComponent<SmoothLandGenerator>().GenerateLand());
+			//collision.collider.transform.parent.GetComponent<SmoothLandGenerator> ().AddHole(transform.position,new Vector3 (bulletPositionX,bulletPositionY,bulletPositionZ),collision.collider.transform.parent.GetComponent<SmoothLandGenerator>().GenerateLand());
 			LeaveSound ();
-			//GameObject newBang = Instantiate (blowZone) as GameObject;
-			//newBang.transform.position = transform.position + new Vector3 (bulletPositionX, bulletPositionY, bulletPositionZ);
+			GameObject newBang = Instantiate (blowZone) as GameObject;
+			newBang.transform.position = transform.position + new Vector3 (bulletPositionX, bulletPositionY, bulletPositionZ);
 		} else if (collision.collider.tag == "Tank") {
 			LeaveSound ();
 			collision.collider.gameObject.SendMessage ("Damage", 10 + damage);
